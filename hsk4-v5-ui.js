@@ -39,7 +39,7 @@ const GUIDE={
  serial_verb:'هناك فعلان متتابعان يشتركان عادةً في الفاعل؛ رتّبهما حسب الهدف أو التسلسل الدلالي.',
  degree_mental:'ظرف الدرجة يسبق الفعل النفسي/التقييمي ويحدد شدته.'
 };
-const originLabel=x=>x.origin==='teacher_added'?'إضافة المعلمة':x.origin==='project_post210'?'المشروع بعد 210':'المشروع الأصلي';
+const originLabel=x=>x.origin==='teacher_added'?'ملفات المحاضرات والدروس':x.origin==='project_post210'?'المشروع بعد 210':'المشروع الأصلي';
 const originClass=x=>x.origin==='teacher_added'?'teacher':x.origin==='project_post210'?'post':'';
 const focusName=id=>id&&G[id]?G[id].zh:'';
 function speak(text){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='zh-CN';u.rate=.82;speechSynthesis.speak(u)}catch(_){}}
@@ -55,7 +55,7 @@ function addAbcTab(){
  const activate=()=>{if(typeof window.showSection==='function')window.showSection('abc');else{$$('.section').forEach(x=>x.classList.remove('active'));$$('.tab').forEach(x=>x.classList.remove('active'));sec.classList.add('active');t.classList.add('active')}};
  t.addEventListener('click',activate);t.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();activate()}});
 }
-function toolbar(){return `<div class="v5-toolbar"><div class="v5-toolbar-row"><input id="v5Search" class="v5-search" type="search" placeholder="ابحث بالصينية أو رقم الجملة…" aria-label="بحث في جمل ترتيب الكلمات"><select id="v5Origin" class="v5-select" aria-label="فلترة المصدر"><option value="all">كل المصادر</option><option value="project_original">المشروع الأصلي</option><option value="project_post210">بعد 210</option><option value="teacher_added">إضافات المعلمة</option></select><span id="v5VisibleCount" class="v5-count"></span></div><div class="v5-family-nav"><button class="v5-chip active" data-family="all">الكل</button>${Object.entries(F).map(([id,v])=>`<button class="v5-chip" data-family="${id}">${v[0]} ${esc(v[1])}</button>`).join('')}</div></div>`}
+function toolbar(){return `<div class="v5-toolbar"><div class="v5-toolbar-row"><input id="v5Search" class="v5-search" type="search" placeholder="ابحث بالصينية أو رقم الجملة…" aria-label="بحث في جمل ترتيب الكلمات"><select id="v5Origin" class="v5-select" aria-label="فلترة المصدر"><option value="all">كل المصادر</option><option value="project_original">المشروع الأصلي</option><option value="project_post210">بعد 210</option><option value="teacher_added">ملفات المحاضرات والدروس</option></select><span id="v5VisibleCount" class="v5-count"></span></div><div class="v5-family-nav"><button class="v5-chip active" data-family="all">الكل</button>${Object.entries(F).map(([id,v])=>`<button class="v5-chip" data-family="${id}">${v[0]} ${esc(v[1])}</button>`).join('')}</div></div>`}
 function qHTML(x,idx){
  const focus=x.teaching_focus_group&&x.teaching_focus_group!==x.primary_group?`<span class="v5-focus">تركيز المعلمة: <span class="zh">${esc(focusName(x.teaching_focus_group))}</span></span>`:'';
  const source=x.origin==='teacher_added'?`ملف المعلمة · ص${x.teacher_crossref?.page??'—'}`:`صف المصدر ${x.source_row_aliases.join(' / ')}`;
